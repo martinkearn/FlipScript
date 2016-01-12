@@ -17,11 +17,10 @@ namespace DemoScriptFlipper.Controllers
             //read and chop up MD file
             string md = System.IO.File.ReadAllText(Server.MapPath("~/SimpleSample.md"));
 
-
             string[] h1Sections = Regex.Split(md, @"(?=^#[^#])", RegexOptions.Multiline);
             foreach (string h1Section in h1Sections)
             {
-                var s = h1Section;
+                var result = CommonMarkConverter.Convert(h1Section);
             }
 
             //// parse markdown into document structure

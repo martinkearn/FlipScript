@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Drawing;
 using System.Drawing.Imaging;
 using CommonMark;
+using System.Text.RegularExpressions;
 
 namespace DemoScriptFlipper.Controllers
 {
@@ -17,18 +18,24 @@ namespace DemoScriptFlipper.Controllers
             string md = System.IO.File.ReadAllText(Server.MapPath("~/SimpleSample.md"));
 
 
-            // parse markdown into document structure
-            var document = CommonMarkConverter.Parse(md);
-
-            // walk the document node tree
-            List<string> tags = new List<string>();
-            foreach (var node in document.AsEnumerable().Where(n => n.Block != null))
+            string[] h1Sections = Regex.Split(md, @"(?=^#[^#])", RegexOptions.Multiline);
+            foreach (string h1Section in h1Sections)
             {
-                if (node.Block != null)
-                {
-                    tags.Add(node.Block.Tag.ToString());
-                }
+                var s = h1Section;
             }
+
+            //// parse markdown into document structure
+            //var document = CommonMarkConverter.Parse(md);
+
+            //// walk the document node tree
+            //List<string> tags = new List<string>();
+            //foreach (var node in document.AsEnumerable().Where(n => n.Block != null))
+            //{
+            //    if (node.Block != null)
+            //    {
+            //        tags.Add(node.Block.Tag.ToString());
+            //    }
+            //}
 
 
             //string[] mdSections = md.Split('#');

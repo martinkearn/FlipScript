@@ -32,25 +32,9 @@ namespace DemoScriptFlipper.Controllers
 
             }
 
-            //return Content(fullHtml);
+            return Content(fullHtml);
 
-            //// parse markdown into document structure
-            //var document = CommonMarkConverter.Parse(md);
-
-            //// walk the document node tree
-            //List<string> tags = new List<string>();
-            //foreach (var node in document.AsEnumerable().Where(n => n.Block != null))
-            //{
-            //    if (node.Block != null)
-            //    {
-            //        tags.Add(node.Block.Tag.ToString());
-            //    }
-            //}
-
-
-            //string[] mdSections = md.Split('#');
-
-            return View();
+            //return View();
         }
 
         public ActionResult About()

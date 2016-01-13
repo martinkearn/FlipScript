@@ -2,30 +2,38 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<ul class="tabs" id="example-tabs" data-tabs="y06ua1-tabs">
+    <li class="tabs-title is-active" role="presentation"><a id="panel1-label" role="tab" aria-selected="true" aria-controls="panel1" href="#panel1">Tab 1</a></li>
+    <li class="tabs-title" role="presentation"><a id="panel2-label" role="tab" aria-selected="false" aria-controls="panel2" href="#panel2">Tab 2</a></li>
+    <li class="tabs-title" role="presentation"><a id="panel3-label" role="tab" aria-selected="false" aria-controls="panel3" href="#panel3">Tab 3</a></li>
+    <li class="tabs-title" role="presentation"><a id="panel4-label" role="tab" aria-selected="false" aria-controls="panel4" href="#panel4">Tab 4</a></li>
+    <li class="tabs-title" role="presentation"><a id="panel5-label" role="tab" aria-selected="false" aria-controls="panel5" href="#panel5">Tab 5</a></li>
+    <li class="tabs-title" role="presentation"><a id="panel6-label" role="tab" aria-selected="false" aria-controls="panel6" href="#panel6">Tab 6</a></li>
+</ul>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="tabs-content" data-tabs-content="example-tabs">
+    <div class="tabs-panel is-active" id="panel1">
+        <p>one</p>
+        <p>Check me out! I'm a super cool Tab panel with text content!</p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="tabs-panel" id="panel2">
+        <p>two</p>
+        <img class="thumbnail" src="assets/img/rectangle-7.jpg">
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="tabs-panel" id="panel3">
+        <p>three</p>
+        <p>Check me out! I'm a super cool Tab panel with text content!</p>
+    </div>
+    <div class="tabs-panel" id="panel4">
+        <p>four</p>
+        <img class="thumbnail" src="assets/img/rectangle-2.jpg">
+    </div>
+    <div class="tabs-panel" id="panel5">
+        <p>five</p>
+        <p>Check me out! I'm a super cool Tab panel with text content!</p>
+    </div>
+    <div class="tabs-panel" id="panel6">
+        <p>six</p>
+        <img class="thumbnail" src="assets/img/rectangle-8.jpg">
     </div>
 </div>

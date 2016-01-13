@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using CommonMark;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace DemoScriptFlipper.Controllers
 {
@@ -18,10 +19,20 @@ namespace DemoScriptFlipper.Controllers
             string md = System.IO.File.ReadAllText(Server.MapPath("~/SimpleSample.md"));
 
             string[] h1Sections = Regex.Split(md, @"(?=^#[^#])", RegexOptions.Multiline);
+            var fullHtml = string.Empty;
             foreach (string h1Section in h1Sections)
             {
-                var result = CommonMarkConverter.Convert(h1Section);
+                var document = CommonMarkConverter.Parse(h1Section);
+                using (var writer = new StringWriter())
+                {
+                    CommonMarkConverter.ProcessStage3(document, writer);
+                    fullHtml += writer.ToString();
+                }
+
+
             }
+
+            //return Content(fullHtml);
 
             //// parse markdown into document structure
             //var document = CommonMarkConverter.Parse(md);

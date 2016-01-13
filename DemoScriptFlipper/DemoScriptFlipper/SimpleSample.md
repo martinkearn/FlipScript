@@ -7,6 +7,16 @@ This is sub-section 1.1
 ##SubSection 1.2
 This is sub-section 1.2
 
+Here is an ordered list:
+1. Ordered bullet 1
+1. Ordered bullet 2
+1. Ordered bullet 3
+
+Here in an unordered list:
+* Unordered bullet 1
+* Unordered bullet 2
+* Unordered bullet 3
+
 #Section 2
 This is a sample section, it has three sub-sections
 

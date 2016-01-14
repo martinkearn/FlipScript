@@ -1,39 +1,10 @@
-﻿@{
+﻿@model DemoScriptFlipper.Models.IndexViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<ul class="tabs" id="example-tabs" data-tabs="y06ua1-tabs">
-    <li class="tabs-title is-active" role="presentation"><a id="panel1-label" role="tab" aria-selected="true" aria-controls="panel1" href="#panel1">Tab 1</a></li>
-    <li class="tabs-title" role="presentation"><a id="panel2-label" role="tab" aria-selected="false" aria-controls="panel2" href="#panel2">Tab 2</a></li>
-    <li class="tabs-title" role="presentation"><a id="panel3-label" role="tab" aria-selected="false" aria-controls="panel3" href="#panel3">Tab 3</a></li>
-    <li class="tabs-title" role="presentation"><a id="panel4-label" role="tab" aria-selected="false" aria-controls="panel4" href="#panel4">Tab 4</a></li>
-    <li class="tabs-title" role="presentation"><a id="panel5-label" role="tab" aria-selected="false" aria-controls="panel5" href="#panel5">Tab 5</a></li>
-    <li class="tabs-title" role="presentation"><a id="panel6-label" role="tab" aria-selected="false" aria-controls="panel6" href="#panel6">Tab 6</a></li>
-</ul>
+<h1>Index</h1>
 
-<div class="tabs-content" data-tabs-content="example-tabs">
-    <div class="tabs-panel is-active" id="panel1">
-        <p>one</p>
-        <p>Check me out! I'm a super cool Tab panel with text content!</p>
-    </div>
-    <div class="tabs-panel" id="panel2">
-        <p>two</p>
-        <img class="thumbnail" src="assets/img/rectangle-7.jpg">
-    </div>
-    <div class="tabs-panel" id="panel3">
-        <p>three</p>
-        <p>Check me out! I'm a super cool Tab panel with text content!</p>
-    </div>
-    <div class="tabs-panel" id="panel4">
-        <p>four</p>
-        <img class="thumbnail" src="assets/img/rectangle-2.jpg">
-    </div>
-    <div class="tabs-panel" id="panel5">
-        <p>five</p>
-        <p>Check me out! I'm a super cool Tab panel with text content!</p>
-    </div>
-    <div class="tabs-panel" id="panel6">
-        <p>six</p>
-        <img class="thumbnail" src="assets/img/rectangle-8.jpg">
-    </div>
-</div>
+@{Html.RenderAction("Headers", new { html = Model.ConvertedHtml });}
+@{Html.RenderAction("Tabs", new { html = Model.ConvertedHtml });}

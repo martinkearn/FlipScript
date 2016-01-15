@@ -71,6 +71,11 @@ namespace DemoScriptFlipper.Controllers
             //split section by header
             string[] sections = Regex.Split(html, @"(?=<h2>)", RegexOptions.Multiline);
 
+            //extract headers
+            var headerElements = agilityDoc.DocumentNode.Descendants("h2").Select(nd => nd.InnerText);
+
+
+
 
             //output HTML
             var outputSb = new StringBuilder();
@@ -85,6 +90,27 @@ namespace DemoScriptFlipper.Controllers
                 count += 1;
             }
             outputSb.AppendLine("</div>");
+
+            return Content(outputSb.ToString());
+        }
+
+        public ActionResult Slides(string html)
+        {
+            //load html document
+            HtmlDocument agilityDoc = new HtmlDocument();
+            agilityDoc.LoadHtml(html);
+
+            //split section by header
+            string[] sections = Regex.Split(html, @"(?=<h2>)", RegexOptions.Multiline);
+
+            //output HTML
+            var outputSb = new StringBuilder();
+            foreach (var section in sections)
+            {
+                outputSb.AppendLine(string.Format("<li class=\"orbit-slide\"><div>"));
+                outputSb.AppendLine(section);
+                outputSb.AppendLine("</div></li>");
+            }
 
             return Content(outputSb.ToString());
         }

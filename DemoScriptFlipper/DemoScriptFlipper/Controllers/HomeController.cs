@@ -29,6 +29,11 @@ namespace DemoScriptFlipper.Controllers
                 fileHTML += writer.ToString();
             }
 
+            //extract h1 for page title
+            HtmlDocument agilityDoc = new HtmlDocument();
+            agilityDoc.LoadHtml(fileHTML);
+            ViewBag.Title = agilityDoc.DocumentNode.Descendants("h1").Select(nd => nd.InnerText).FirstOrDefault();
+
             //view model
             var viewModel = new IndexViewModel()
             {
@@ -38,61 +43,8 @@ namespace DemoScriptFlipper.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Headers(string html)
-        {
-            //load html document
-            HtmlDocument agilityDoc = new HtmlDocument();
-            agilityDoc.LoadHtml(html);
-
-            //extract headers
-            var headerElements = agilityDoc.DocumentNode.Descendants("h2").Select(nd => nd.InnerText);
-
-            //output HTML
-            var outputSb = new StringBuilder();
-            outputSb.AppendLine("<ul class=\"tabs\" data-tabs id=\"example-tabs\">");
-            var count = 1;
-            foreach (var headerElement in headerElements)
-            {
-                var activeClass = (count == 1) ? "is-active" : string.Empty;
-                outputSb.AppendLine(string.Format("<li class=\"tabs-title {0}\"><a href=\"#{1}\">{2}</a></li>", activeClass, count, headerElement));
-                count += 1;
-            }
-            outputSb.AppendLine("</ul>");
-
-            return Content(outputSb.ToString());
-        }
-
-        public ActionResult Tabs(string html)
-        {
-            //load html document
-            HtmlDocument agilityDoc = new HtmlDocument();
-            agilityDoc.LoadHtml(html);
-
-            //split section by header
-            string[] sections = Regex.Split(html, @"(?=<h2>)", RegexOptions.Multiline);
-
-            //extract headers
-            var headerElements = agilityDoc.DocumentNode.Descendants("h2").Select(nd => nd.InnerText);
 
 
-
-
-            //output HTML
-            var outputSb = new StringBuilder();
-            outputSb.AppendLine("<div class=\"tabs-content\" data-tabs-content=\"example-tabs\">");
-            var count = 1;
-            foreach (var section in sections)
-            {
-                var activeClass = (count == 1) ? "is-active" : string.Empty;
-                outputSb.AppendLine(string.Format("<div class=\"tabs-panel {0}\" id=\"{1}\">", activeClass, count));
-                outputSb.AppendLine(section);
-                outputSb.AppendLine("</div>");
-                count += 1;
-            }
-            outputSb.AppendLine("</div>");
-
-            return Content(outputSb.ToString());
-        }
 
         public ActionResult Slides(string html)
         {
@@ -107,9 +59,10 @@ namespace DemoScriptFlipper.Controllers
             var outputSb = new StringBuilder();
             foreach (var section in sections)
             {
-                outputSb.AppendLine(string.Format("<li class=\"orbit-slide\"><div>"));
+                //owl format
+                outputSb.AppendLine(string.Format("<div>"));
                 outputSb.AppendLine(section);
-                outputSb.AppendLine("</div></li>");
+                outputSb.AppendLine("</div>");
             }
 
             return Content(outputSb.ToString());

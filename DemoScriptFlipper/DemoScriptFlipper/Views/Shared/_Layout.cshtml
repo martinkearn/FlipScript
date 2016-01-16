@@ -6,6 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/foundation.min.css" rel="stylesheet" />
+
+    <!-- Important Owl stylesheet -->
+    <link href="~/Content/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/owl.theme.css" rel="stylesheet" />
+    <link href="~/Content/owl.transitions.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -18,6 +24,7 @@
     <script type="text/javascript">
         $(document).foundation();
     </script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

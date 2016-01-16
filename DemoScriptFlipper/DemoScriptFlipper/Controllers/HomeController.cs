@@ -30,9 +30,9 @@ namespace DemoScriptFlipper.Controllers
         [HttpPost]
         public ActionResult Viewer(FormCollection collection)
         {
-            //read incoming form
+            //read file in incoiung form to a string
             var files = GetFilesFromForm(Request.Files);
-            string fileMd = System.IO.File.ReadAllText(Server.MapPath("~/Sample.md"));
+            var fileMd = Encoding.UTF8.GetString(files.FirstOrDefault());
 
             //get full html string from md
             var fileHTML = string.Empty;
@@ -109,6 +109,13 @@ namespace DemoScriptFlipper.Controllers
                 }
             }
             return files;
+        }
+
+        static string GetStringFromByteArray(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
         }
     }
 }

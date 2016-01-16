@@ -1,11 +1,12 @@
-﻿# Section 1
-This is a sample section, it has two sub-sections
+﻿
+# Main header
+This is a very simple file which demonstrates how FlipScript works.
 
-## SubSection 1.1
-This is sub-section 1.1
+## Section 1
+This is section 1
 
-## SubSection 1.2
-This is sub-section 1.2
+## Section 2
+This is section 2
 
 Here is an ordered list:
 1. Ordered bullet 1
@@ -13,21 +14,21 @@ Here is an ordered list:
 1. Ordered bullet 3
 
 Here in an unordered list:
-* Unordered bullet 1
-* Unordered bullet 2
-* Unordered bullet 3
+	- Unordered bullet 1
+	- Unordered bullet 2
+	- Unordered bullet 3
 
-# Section 2
-This is a sample section, it has three sub-sections
+## Section 3
+This is sub-section 3
 
-## SubSection 2.1
-This is sub-section 2.1
+### Section 3.1
+sub-section 3.1
 
-## SubSection 2.2
-This is sub-section 2.2
+### Section 3.2
+Sub-section 3.2
 
-## SubSection 2.3
-This is sub-section 2.3
+# H1
+This is another h1 section
 
-# Section 3
+## Section 4
 This is a section without any sub sections

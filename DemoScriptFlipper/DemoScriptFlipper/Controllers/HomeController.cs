@@ -11,6 +11,7 @@ using System.IO;
 using HtmlAgilityPack;
 using System.Text;
 using DemoScriptFlipper.Models;
+using System.Threading.Tasks;
 
 namespace DemoScriptFlipper.Controllers
 {
@@ -18,7 +19,19 @@ namespace DemoScriptFlipper.Controllers
     {
         public ActionResult Index()
         {
-            //read file
+            //view model
+            var viewModel = new IndexViewModel()
+            {
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Viewer(FormCollection collection)
+        {
+            //read incoming form
+            var files = GetFilesFromForm(Request.Files);
             string fileMd = System.IO.File.ReadAllText(Server.MapPath("~/Sample.md"));
 
             //get full html string from md
@@ -35,15 +48,13 @@ namespace DemoScriptFlipper.Controllers
             ViewBag.Title = agilityDoc.DocumentNode.Descendants("h1").Select(nd => nd.InnerText).FirstOrDefault();
 
             //view model
-            var viewModel = new IndexViewModel()
+            var viewModel = new ViewerViewModel()
             {
-                ConvertedHtml = fileHTML  
+                ConvertedHtml = fileHTML
             };
 
             return View(viewModel);
         }
-
-
 
 
         public ActionResult Slides(string html)
@@ -80,6 +91,24 @@ namespace DemoScriptFlipper.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        private List<byte[]> GetFilesFromForm(HttpFileCollectionBase formFiles)
+        {
+            List<byte[]> files = new List<byte[]>();
+            for (int i = 0; i < formFiles.AllKeys.Count(); i++)
+            {
+                HttpPostedFileBase file = formFiles[i];
+                if (file.ContentLength > 0)
+                {
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        byte[] fileByteArray = binaryReader.ReadBytes(file.ContentLength);
+                        files.Add(fileByteArray);
+                    }
+                }
+            }
+            return files;
         }
     }
 }

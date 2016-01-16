@@ -3,33 +3,52 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - Flip Script</title>
+
     <link href="~/Content/foundation.min.css" rel="stylesheet" />
 
-    <!-- Important Owl stylesheet -->
     <link href="~/Content/owl.carousel.css" rel="stylesheet" />
     <link href="~/Content/owl.theme.css" rel="stylesheet" />
     <link href="~/Content/owl.transitions.css" rel="stylesheet" />
     
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
 
-    <!--Zurb Foundation 6 Top bar: http://foundation.zurb.com/sites/docs/top-bar.html-->
+    <!--Zurb Foundation 6 title bar-->
+    <div class="title-bar">
+        <div class="title-bar-left">
+            <span class="title-bar-title">@ViewBag.Title</span>
+        </div>
+        <div class="title-bar-right">
+            <a id="load-button" class="small button" data-open="file-load-modal" href="#"><i class="fa fa-upload"></i> <span class="hidden-xs">Load MD File</span></a>
+        </div>
+    </div>
 
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">@ViewBag.Title</li>
-                </ul>
+    <div class="reveal" id="file-load-modal" data-reveal>
+        <h1>Upload a new file</h1>
+        <p>Choose a new Markdown file to apply the FlipScript treatment to.</p>
+
+        @using (Html.BeginForm("Viewer", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="small-12 columns">
+                    <input type="file" name="file" id="file" />
+                </div>
             </div>
-            <div class="top-bar-right">
-                <ul class="menu">
-                    <li><button type="button" class="button"><i class="fa fa-upload"></i> <span class="hidden-xs">Load MD File</span></button></li>
-                </ul>
+            <div class="row">
+                <div class="small-12 columns">
+                    <input type="submit" class="button" value="Submit">
+                </div>
             </div>
-</div>
+        }
+
+        <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true"><i class="fa fa-times"></i></span>
+        </button>
+    </div>
 
 
     @RenderBody()

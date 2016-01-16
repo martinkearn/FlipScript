@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DemoScriptFlipper.Models
 {
-    public class IndexViewModel
+    public class ViewerViewModel
     {
+        public string ConvertedHtml { get; set; }
     }
 }

@@ -1,19 +1,5 @@
 ﻿@model DemoScriptFlipper.Models.IndexViewModel
 
-<!--Zurb Foundation 6 Top bar: http://foundation.zurb.com/sites/docs/top-bar.html-->
-<div class="top-bar">
-    <div class="top-bar-left">
-        <ul class="dropdown menu" data-dropdown-menu>
-            <li class="menu-text">@ViewBag.Title</li>
-        </ul>
-    </div>
-    <div class="top-bar-right">
-        <ul class="menu">
-            <li><a href="#">Load new file</a></li>
-        </ul>
-    </div>
-</div>
-
 <div class="expanded row">
     <div class="small-12 columns">
         <div id="owl-example" class="owl-carousel">
@@ -36,8 +22,13 @@
             mouseDrag: true,
             touchDrag: true,
             singleItem: true,
-            navigation: true, // Show next and prev buttons
+            navigation: true,
+            //afterInit : function(elem){
+            //    var that = this
+            //    that.owlControls.prependTo(elem)
+            //}
         });
+
     });
 </script>   
 }

@@ -63,6 +63,17 @@ namespace DemoScriptFlipper.Controllers
             HtmlDocument agilityDoc = new HtmlDocument();
             agilityDoc.LoadHtml(html);
 
+
+            var nodes = agilityDoc.DocumentNode.ChildNodes.ToArray();
+            var result = nodes.Skip(1).Aggregate(nodes.Take(1).Select(x => x.OuterHtml).ToList(), (a, n) => 
+            {
+                if (n.Name.ToLower() == "h1" || n.Name.ToLower() == "h2")
+                {
+                    a.Add("");
+                }
+                a[a.Count - 1] += n.OuterHtml; return a;
+            });
+
             //split section by header
             string[] sections = Regex.Split(html, @"(?=<h2>)", RegexOptions.Multiline);
 

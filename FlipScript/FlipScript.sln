@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ED4EFB3F-0EB6-46D7-AEDB-603F2A930395}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14E829EE-04BC-43B2-9C0B-C8A118818DF8}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FlipScript", "src\FlipScript\FlipScript.xproj", "{89D13D68-6D4E-4069-AD9C-BB2B372D4E95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89D13D68-6D4E-4069-AD9C-BB2B372D4E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D13D68-6D4E-4069-AD9C-BB2B372D4E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D13D68-6D4E-4069-AD9C-BB2B372D4E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D13D68-6D4E-4069-AD9C-BB2B372D4E95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{89D13D68-6D4E-4069-AD9C-BB2B372D4E95} = {ED4EFB3F-0EB6-46D7-AEDB-603F2A930395}
+	EndGlobalSection
+EndGlobal

@@ -30,7 +30,7 @@ namespace DemoScriptFlipper.Controllers
         [HttpPost]
         public ActionResult Viewer(FormCollection collection)
         {
-            //read file in incoiung form to a string
+            //read file in incoming form to a string
             var files = GetFilesFromForm(Request.Files);
             var fileMd = Encoding.UTF8.GetString(files.FirstOrDefault());
 
@@ -63,9 +63,9 @@ namespace DemoScriptFlipper.Controllers
             HtmlDocument agilityDoc = new HtmlDocument();
             agilityDoc.LoadHtml(html);
 
-
+            //split the html doc based on headers
             var nodes = agilityDoc.DocumentNode.ChildNodes.ToArray();
-            var result = nodes.Skip(1).Aggregate(nodes.Take(1).Select(x => x.OuterHtml).ToList(), (a, n) => 
+            var sections = nodes.Skip(1).Aggregate(nodes.Take(1).Select(x => x.OuterHtml).ToList(), (a, n) => 
             {
                 if (n.Name.ToLower() == "h1" || n.Name.ToLower() == "h2")
                 {
@@ -74,17 +74,18 @@ namespace DemoScriptFlipper.Controllers
                 a[a.Count - 1] += n.OuterHtml; return a;
             });
 
-            //split section by header
-            string[] sections = Regex.Split(html, @"(?=<h2>)", RegexOptions.Multiline);
-
             //output HTML
             var outputSb = new StringBuilder();
             foreach (var section in sections)
             {
-                //owl format
-                outputSb.AppendLine(string.Format("<div>"));
-                outputSb.AppendLine(section);
-                outputSb.AppendLine("</div>");
+                //eliminate empty sections
+                if (section.ToLower() != "<p>﻿</p>\r\n")
+                {
+                    //populate owl format carosel slides
+                    outputSb.AppendLine("<div>");
+                    outputSb.AppendLine(section);
+                    outputSb.AppendLine("</div>");
+                }
             }
 
             return Content(outputSb.ToString());

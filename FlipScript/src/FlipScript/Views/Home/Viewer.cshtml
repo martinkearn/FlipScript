@@ -1,0 +1,41 @@
+﻿@model FlipScript.ViewModels.Home.Viewer
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="expanded row">
+    <div class="small-12 columns">
+        <div id="owl-example" class="owl-carousel">
+            @foreach (var slide in Model.SlidesHtml)
+            {
+                Output.Write(slide);
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#owl-example").owlCarousel({
+                items: 1,
+                autoPlay: false,
+                pagination: true,
+                paginationNumbers: true,
+                responsive: true,
+                autoHeight: true,
+                dragBeforeAnimFinish: true,
+                mouseDrag: true,
+                touchDrag: true,
+                singleItem: true,
+                navigation: true,
+                //afterInit : function(elem){
+                //    var that = this
+                //    that.owlControls.prependTo(elem)
+                //}
+            });
+
+        });
+    </script>
+}

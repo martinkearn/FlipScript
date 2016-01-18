@@ -21,3 +21,9 @@
 dl, ol, ul {
     list-style-position: inside;
 }
+
+.owl-theme .owl-controls .owl-page span.owl-numbers {
+    padding: 5px 10px;
+    font-size: 1.5rem;
+}
+

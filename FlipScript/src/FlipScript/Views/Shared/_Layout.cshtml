@@ -5,39 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - FlipScript</title>
 
+        <link href="~/lib/foundation-sites/dist/foundation.min.css" rel="stylesheet" />
+        <link href="~/lib/owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet" />
+        <link href="~/lib/owl-carousel/owl-carousel/owl.theme.css" rel="stylesheet" />
+        <link href="~/lib/owl-carousel/owl-carousel/owl.transitions.css" rel="stylesheet" />
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
         <environment names="Development">
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>
         <environment names="Staging,Production">
-            @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         </environment>
-
-        <link href="~/lib/foundation-sites/dist/foundation.min.css" rel="stylesheet" />
-
-        <link href="~/lib/owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet" />
-        <link href="~/lib/owl-carousel/owl-carousel/owl.theme.css" rel="stylesheet" />
-        <link href="~/lib/owl-carousel/owl-carousel/owl.transitions.css" rel="stylesheet" />
-
-        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-
-        <link href="~/css/site.min.css" rel="stylesheet" />
-
-        @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
     </head>
     <body>
         @*@await Html.PartialAsync("_LoginPartial")*@
 
-        <!--Zurb Foundation 6 title bar-->
-        <div class="title-bar">
-            <div class="title-bar-left">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-lg"></i></a>
-                <span class="title-bar-title">@ViewBag.Title</span>
-            </div>
-            <div class="title-bar-right">
-                <a id="load-button" class="small button" data-open="file-load-modal" href="#"><i class="fa fa-plus"></i> <span class="hidden-xs"> New File</span></a>
+        <div>
+            <div class="title-bar">
+                <div class="title-bar-left">
+                    <span class="title-bar-title">@ViewBag.Title</span>
+                </div>
+                <div class="title-bar-right">
+                    <a id="load-button" class="small button" data-open="file-load-modal" href="#"><i class="fa fa-plus"></i> <span class="hidden-xs"> New File</span></a>
+                </div>
             </div>
         </div>
 
@@ -52,25 +43,19 @@
 
         @RenderBody()
 
-
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
-
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/foundation-sites/dist/foundation.min.js"></script>
         <script type="text/javascript">
             $(document).foundation();
         </script>
-
         <script src="~/lib/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
+
+        <environment names="Development">
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
 
         @RenderSection("scripts", required: false)
     </body>

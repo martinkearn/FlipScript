@@ -29,11 +29,11 @@
                 mouseDrag: true,
                 touchDrag: true,
                 singleItem: true,
-                navigation: true,
-                //afterInit : function(elem){
-                //    var that = this
-                //    that.owlControls.prependTo(elem)
-                //}
+                navigation: false,
+                afterInit : function(elem){
+                    var that = this
+                    that.owlControls.prependTo(elem)
+                }
             });
 
         });

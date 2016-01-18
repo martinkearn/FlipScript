@@ -10,6 +10,7 @@
         <link href="~/lib/owl-carousel/owl-carousel/owl.theme.css" rel="stylesheet" />
         <link href="~/lib/owl-carousel/owl-carousel/owl.transitions.css" rel="stylesheet" />
         <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/css/blackout/stylesheet.css" rel="stylesheet" />
 
         <environment names="Development">
             <link rel="stylesheet" href="~/css/site.css" />
@@ -20,26 +21,6 @@
     </head>
     <body>
         @*@await Html.PartialAsync("_LoginPartial")*@
-
-        <div>
-            <div class="title-bar">
-                <div class="title-bar-left">
-                    <span class="title-bar-title">@ViewBag.Title</span>
-                </div>
-                <div class="title-bar-right">
-                    <a id="load-button" class="small button" data-open="file-load-modal" href="#"><i class="fa fa-plus"></i> <span class="hidden-xs"> New File</span></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="reveal" id="file-load-modal" data-reveal>
-            <h2>Upload</h2>
-            <p>Upload a new Markdown file.</p>
-            @Html.Partial("_NewFilePartial")
-            <button class="close-button" data-close aria-label="Close reveal" type="button">
-                <span aria-hidden="true"><i class="fa fa-times"></i></span>
-            </button>
-        </div>
 
         @RenderBody()
 

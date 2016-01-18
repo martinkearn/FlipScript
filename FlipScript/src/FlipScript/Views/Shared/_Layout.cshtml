@@ -37,13 +37,13 @@
                 <span class="title-bar-title">@ViewBag.Title</span>
             </div>
             <div class="title-bar-right">
-                <a id="load-button" class="tiny button" data-open="file-load-modal" href="#"><i class="fa fa-upload"></i> <span class="hidden-xs"> New File</span></a>
+                <a id="load-button" class="small button" data-open="file-load-modal" href="#"><i class="fa fa-plus"></i> <span class="hidden-xs"> New File</span></a>
             </div>
         </div>
 
         <div class="reveal" id="file-load-modal" data-reveal>
-            <h2>Upload a new file</h2>
-            <p>Choose a new Markdown file to apply the FlipScript treatment to.</p>
+            <h2>Upload</h2>
+            <p>Upload a new Markdown file.</p>
             @Html.Partial("_NewFilePartial")
             <button class="close-button" data-close aria-label="Close reveal" type="button">
                 <span aria-hidden="true"><i class="fa fa-times"></i></span>

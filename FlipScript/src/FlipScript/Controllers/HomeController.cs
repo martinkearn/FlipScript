@@ -66,7 +66,7 @@ namespace FlipScript.Controllers
                 if (section.ToLower() != "<p>﻿</p>\r\n")
                 {
                     //populate owl format carosel slides
-                    outputSb.AppendLine("<div>");
+                    outputSb.AppendLine("<div class=\"item\">");
                     outputSb.AppendLine(section);
                     outputSb.AppendLine("</div>");
                 }

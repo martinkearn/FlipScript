@@ -1,4 +1,8 @@
-﻿.title-bar {
+﻿body {
+    font-size: 16pt;
+}
+
+.title-bar {
 
 }
 
@@ -12,4 +16,8 @@
 
 .owl-theme .owl-controls .owl-buttons div {
     border-radius: 0px;
+}
+
+dl, ol, ul {
+    list-style-position: inside;
 }

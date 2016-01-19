@@ -1,6 +1,5 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
-/// <reference path="css/blackout/specimen_files/easytabs.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/foundation-sites/dist/foundation.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />

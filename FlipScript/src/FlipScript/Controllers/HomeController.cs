@@ -22,6 +22,11 @@ namespace FlipScript.Controllers
         [HttpPost]
         public IActionResult Viewer(IFormFile file)
         {
+            if (file == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             //read incoming file to a string
             var fileContent = string.Empty;
             using (var reader = new StreamReader(file.OpenReadStream()))

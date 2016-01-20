@@ -10,8 +10,8 @@
         <span class="title-bar-title hide-for-small-only">@ViewData["Title"]</span>
     </div>
     <div class="title-bar-right">
-        <a id="prev" class="small button" href="#"><i class="fa fa-angle-left"></i> <span class="hide-for-small-only"> Previous</span></a>
-        <a id="next" class="small button" href="#"><i class="fa fa-angle-right"></i> <span class="hide-for-small-only"> Next</span></a>
+        @*<a id="prev" class="small button" href="#"><i class="fa fa-angle-left"></i> <span class="hide-for-small-only"> Previous</span></a>
+        <a id="next" class="small button" href="#"><i class="fa fa-angle-right"></i> <span class="hide-for-small-only"> Next</span></a>*@
     </div>
 </div>
 <div class="reveal" id="file-load-modal" data-reveal>
@@ -23,7 +23,7 @@
 </div>
 
 <div id="carousel-container" class="expanded row">
-    <div class="small-12 columns">
+    <div id="carousel-container-columns" class="small-12 columns">
         <div id="owl" class="owl-carousel">
             @foreach (var slide in Model.SlidesHtml)
             {
@@ -31,6 +31,11 @@
             }
         </div>
     </div>
+</div>
+
+<div id="footer-nav">
+    <a id="prev" class="large button prev-next-button float-left" href="#"><i class="fa fa-angle-left"></i> <span class="hide-for-small-only"> Previous</span></a>
+    <a id="next" class="large button prev-next-button float-right" href="#"><i class="fa fa-angle-right"></i> <span class="hide-for-small-only"> Next</span></a>
 </div>
 
 @section scripts{
@@ -45,16 +50,11 @@
                 pagination: true,
                 paginationNumbers: true,
                 responsive: true,
-                autoHeight: true,
                 dragBeforeAnimFinish: true,
                 mouseDrag: true,
                 touchDrag: true,
                 singleItem: true,
-                navigation: false,
-                //afterInit : function(elem){
-                //    var that = this
-                //    that.owlControls.prependTo(elem)
-                //}
+                navigation: false
             });
 
             // Custom Navigation Events

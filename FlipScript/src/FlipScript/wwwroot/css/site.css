@@ -47,6 +47,14 @@
     height: 100%;
 }
 
+#carousel-container-columns {
+    height: 100%;
+}
+
+.owl-carousel {
+    height: 100%;
+}
+
 .owl-theme .owl-controls .owl-page span.owl-numbers {
     border-radius: 0;
 }
@@ -73,4 +81,27 @@ dl, ol, ul {
     margin-top: 0;
     margin-left: -15px;
     margin-right: -15px;
+}
+
+.owl-controls {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    bottom: 60px;
+}
+
+#footer-nav {
+    font-family: "blackoutmidnight", Arial, sans-serif;
+    color: white;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    background-color: #808080;
+    bottom: 0;
+    height: 60px;
+}
+
+.prev-next-button {
+    width: 50%;
+    height: 100%;
 }

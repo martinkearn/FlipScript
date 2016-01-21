@@ -47,6 +47,10 @@
     height: 100%;
 }
 
+.owl-wrapper-outer {
+    margin-bottom: 60px;
+}
+
 #carousel-container-columns {
     height: 100%;
 }

@@ -27,39 +27,11 @@ namespace FlipScript.Controllers
                 return RedirectToAction("Index");
             }
 
-            //read incoming file to a string
-            var fileContent = string.Empty;
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                //ContentDispositionHeaderValue parsedContentDisposition;
-                //ContentDispositionHeaderValue.TryParse(file.ContentDisposition, out parsedContentDisposition);
-                //title = parsedContentDisposition.Name;
-                fileContent = reader.ReadToEnd();
-            }
+            //convert markdown file to array of html section strings
+            var sections = ConvertFile(file);
 
-            //get full html string from file
-            var fileHTML = string.Empty;
-            using (var writer = new StringWriter())
-            {
-                CommonMarkConverter.ProcessStage3(CommonMarkConverter.Parse(fileContent), writer);
-                fileHTML += writer.ToString();
-            }
-
-            //extract h1 for page title
-            HtmlDocument agilityDoc = new HtmlDocument();
-            agilityDoc.LoadHtml(fileHTML);
-            var title = agilityDoc.DocumentNode.Descendants("h1").Select(nd => nd.InnerText).FirstOrDefault();
-
-            //split the html doc based on headers
-            var nodes = agilityDoc.DocumentNode.ChildNodes.ToArray();
-            var sections = nodes.Skip(1).Aggregate(nodes.Take(1).Select(x => x.OuterHtml).ToList(), (a, n) =>
-            {
-                if (n.Name.ToLower() == "h1" || n.Name.ToLower() == "h2")
-                {
-                    a.Add("");
-                }
-                a[a.Count - 1] += n.OuterHtml; return a;
-            });
+            //find and extract h1 for page title from array of html strings
+            var title = GetTitle(sections);
 
             //enumerate HTML sections and construct array of slides for Owl Carousel
             List<string> slides = new List<string>();
@@ -80,17 +52,64 @@ namespace FlipScript.Controllers
                 slides.Add(outputSb.ToString());
             }
 
-            return View(new Viewer()
-                {
-                    Title = title,
-                    SlidesHtml = slides
-                }
-            );
+            var viewModel = new Viewer()
+            {
+                Title = title,
+                SlidesHtml = slides
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Error()
         {
             return View();
+        }
+
+        private List<string> ConvertFile(IFormFile file)
+        {
+            //read incoming file to a string
+            var fileContent = string.Empty;
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                fileContent = reader.ReadToEnd();
+            }
+
+            //get full html string from file
+            var fileHTML = string.Empty;
+            using (var writer = new StringWriter())
+            {
+                CommonMarkConverter.ProcessStage3(CommonMarkConverter.Parse(fileContent), writer);
+                fileHTML += writer.ToString();
+            }
+
+            //split the html doc based on headers
+            HtmlDocument agilityDoc = new HtmlDocument();
+            agilityDoc.LoadHtml(fileHTML);
+            var nodes = agilityDoc.DocumentNode.ChildNodes.ToArray();
+            List<string> sections = nodes.Skip(1).Aggregate(nodes.Take(1).Select(x => x.OuterHtml).ToList(), (a, n) =>
+            {
+                if (n.Name.ToLower() == "h1" || n.Name.ToLower() == "h2")
+                {
+                    a.Add("");
+                }
+                a[a.Count - 1] += n.OuterHtml; return a;
+            });
+
+            return sections;
+        }
+
+        private string GetTitle(List<string> sections)
+        {
+            HtmlDocument agilityDoc = new HtmlDocument();
+            var title = string.Empty;
+            foreach (var section in sections)
+            {
+                agilityDoc.LoadHtml(section);
+                title = agilityDoc.DocumentNode.Descendants("h1").Select(nd => nd.InnerText).FirstOrDefault();
+                if (title != string.Empty) break;
+            }
+            return title;
         }
     }
 }

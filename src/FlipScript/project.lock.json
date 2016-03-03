@@ -2007,6 +2007,18 @@
           "lib/net45/_._": {}
         }
       },
+      "System.Net.Http/4.0.1-beta-23516": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
       "System.Numerics.Vectors/4.1.1-beta-23516": {
         "type": "package",
         "compile": {
@@ -2123,6 +2135,15 @@
         }
       },
       "System.Threading/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Threading.Tasks/4.0.11-beta-23516": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -6909,6 +6930,12 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "runtime.win7.System.Net.Http/4.0.1-beta-23516": {
+        "type": "package",
+        "compile": {
+          "ref/dotnet/_._": {}
+        }
+      },
       "System.Collections/4.0.0": {
         "type": "package",
         "compile": {
@@ -6989,6 +7016,18 @@
       },
       "System.Linq/4.0.0": {
         "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Net.Http/4.0.1-beta-23516": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
         "compile": {
           "ref/net45/_._": {}
         },
@@ -7112,6 +7151,15 @@
         }
       },
       "System.Threading/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Threading.Tasks/4.0.11-beta-23516": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -9042,6 +9090,12 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "runtime.win7.System.Net.Http/4.0.1-beta-23516": {
+        "type": "package",
+        "compile": {
+          "ref/dotnet/_._": {}
+        }
+      },
       "System.Collections/4.0.0": {
         "type": "package",
         "compile": {
@@ -9122,6 +9176,18 @@
       },
       "System.Linq/4.0.0": {
         "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Net.Http/4.0.1-beta-23516": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
         "compile": {
           "ref/net45/_._": {}
         },
@@ -9245,6 +9311,15 @@
         }
       },
       "System.Threading/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net45/_._": {}
+        },
+        "runtime": {
+          "lib/net45/_._": {}
+        }
+      },
+      "System.Threading.Tasks/4.0.11-beta-23516": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -19799,7 +19874,7 @@
     "System.Net.Sockets/4.1.0-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "9wupz6i8AONzdzaLglcYImU25ivdcKmBXnf9GxE0eS1QqRGWQcWkKyv4dyxMc9E0gt4UuTIktn2FLjrz8ir6sw==",
+      "sha512": "ZB+ZE/Bo52Zr38mIX4Wb1mrq9zHCbl7Oz9iv8IL3dQ2RZqMdUZpPI/PLTRI+/BgUNnycK53VY8kp8QGJIzqTiQ==",
       "files": [
         "lib/DNXCore50/System.Net.Sockets.dll",
         "lib/MonoAndroid10/_._",
@@ -20027,7 +20102,7 @@
     "System.Reflection/4.1.0-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "nlguo6AocBKGccv4CFSMCOR2/vU+93u/yvzFKO6ViNJ/SBz2VEZ1nOeW93vqKKpOMJkt3YtTvMWmS+kUGz/1bA==",
+      "sha512": "WbLtaCxoe5XdqEyZuGpemSQ8YBJ8cj11zx+yxOxJfHbNrmu7oMQ29+J50swaqg3soUc3BVBMqfIhb/7gocDHQA==",
       "files": [
         "lib/DNXCore50/System.Reflection.dll",
         "lib/MonoAndroid10/_._",
@@ -21915,9 +21990,13 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
       "HtmlAgilityPack >= 1.4.9",
-      "CommonMark.NET >= 0.11.0"
+      "CommonMark.NET >= 0.11.0",
+      "System.Threading.Tasks >= 4.0.11-beta-23516",
+      "Newtonsoft.Json >= 6.0.6"
     ],
-    "DNX,Version=v4.5.1": [],
+    "DNX,Version=v4.5.1": [
+      "System.Net.Http >= 4.0.1-beta-23516"
+    ],
     "DNXCore,Version=v5.0": []
   }
 }

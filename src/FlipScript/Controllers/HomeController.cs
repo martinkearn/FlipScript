@@ -9,6 +9,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace FlipScript.Controllers
 {
@@ -16,6 +20,48 @@ namespace FlipScript.Controllers
     {
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetFromGitHub(string owner, string repo, string path)
+        {
+
+#if DEBUG
+            if (string.IsNullOrEmpty(owner)) owner = "martinkearn";
+            if (string.IsNullOrEmpty(repo)) repo = "content";
+            if (string.IsNullOrEmpty(path)) path = "README.md";
+#endif
+
+            using (var httpClient = new HttpClient())
+            {
+                var baseApi = "https://api.github.com";
+                var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, owner.Trim('/'), repo.Trim('/'), path.Trim('/'));
+
+                //setup HttpClient
+                httpClient.BaseAddress = new Uri(baseApi);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //set up user agent - required by GitHub api to avoid protocol violation errors
+                var message = new HttpRequestMessage(HttpMethod.Get, fullApiPath);
+                message.Headers.Add("User-Agent", "FlipScript");
+
+                //make request
+                var response = await httpClient.SendAsync(message);
+
+                //read and deserialise response
+                var responseContent = await response.Content.ReadAsStringAsync();
+                dynamic responseObj = JObject.Parse(responseContent);
+
+                //get and decode 'content' property
+                string contentBase64EncodedString = responseObj.content;
+                var contentBase64EncodedBytes = Convert.FromBase64String(contentBase64EncodedString);
+                var decodedContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
+
+                //write to view
+                ViewData["Result"] = decodedContent;
+            }
+
             return View();
         }
 

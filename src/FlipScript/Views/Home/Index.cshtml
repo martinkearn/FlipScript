@@ -19,4 +19,17 @@
         <p>Choose a new Markdown file to apply the FlipScript treatment to.</p>
         @Html.Partial("_NewFilePartial")
     </div>
+
+    <div class="small-12 columns">
+        <p>Get a file straight from GitHub.</p>
+        <form action="/Home/GetFromGitHub" method="post">
+            <label for="owner">Owner:</label>
+            <input type="text" name="owner" id="owner" placeholder="martinkearn"  />
+            <label for="repo">Repo:</label>
+            <input type="text" name="repo" id="repo" placeholder="content"  />
+            <label for="path">Path:</label>
+            <input type="text" name="path" id="path" placeholder="Demos/API/Consuming%20the%20feedback%20system%20api.md"  />
+            <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Get from GitHub</button>
+        </form>
+    </div>
 </div>

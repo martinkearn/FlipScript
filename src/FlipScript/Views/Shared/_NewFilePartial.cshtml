@@ -1,5 +1,5 @@
 ﻿<div class="small-12 columns">
-    <h4>Upload a file</h4>
+    <h4>Upload a file from your device</h4>
     <form action="/Home/Viewer" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="large-12 columns">
@@ -13,33 +13,16 @@
 </div>
 
 <div class="small-12 columns">
-    <h4>Get a file from <i class="fa fa-github"></i> GitHub</h4>
-    <form action="/Home/Viewer" method="post" autocomplete="on" class="form-inline">
+    <h4>Upload a file from GitHub <i class="fa fa-github"></i></h4>
+    <form action="/Home/Viewer" method="post" autocomplete="on">
         <div class="row">
             <div class="large-12 columns">
                 <label>
-                    Owner
-                    <input type="text" name="owner" id="owner" placeholder="The owner of the GitHub repository you want to use i.e. 'martinkearn'" />
+                    GitHub URL
+                    <input type="text" name="gitHubUrl" id="gitHubUrl" />
                 </label>
             </div>
         </div>
-        <div class="row">
-            <div class="large-12 columns">
-                <label>
-                    Repository
-                    <input type="text" name="repo" id="repo" placeholder="The repository you want to use i.e. 'content'" />
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-12 columns">
-                <label>
-                    Path
-                    <input type="text" name="path" id="path" placeholder="The repository-relative path i.e. 'Demos/API/Consuming%20the%20feedback%20system%20api.md'" />
-                </label>
-            </div>
-        </div>
-
-        <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Get from GitHub</button>
+        <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Upload from GitHub</button>
     </form>
 </div>

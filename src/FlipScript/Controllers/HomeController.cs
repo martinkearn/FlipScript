@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNet.Routing;
+using FlipScript.Models;
 
 namespace FlipScript.Controllers
 {
@@ -24,8 +25,11 @@ namespace FlipScript.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
-        public async Task<IActionResult> Viewer(IFormFile file, string owner, string repo, string path)
+        public async Task<IActionResult> Viewer(IFormFile file, string gitHubUrl)
         {
 
             var fileContent = string.Empty;
@@ -41,15 +45,17 @@ namespace FlipScript.Controllers
             }
             else
             {
-                if ((string.IsNullOrEmpty(owner)) || (string.IsNullOrEmpty(repo)) || (string.IsNullOrEmpty(path)))
+                if (string.IsNullOrEmpty(gitHubUrl))
                 {
                     return RedirectToAction("Index");
                 }
 
+                var gitHubUrlData = ParseGithubUrl(gitHubUrl);
+
                 using (var httpClient = new HttpClient())
                 {
                     var baseApi = "https://api.github.com";
-                    var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, owner.Trim('/'), repo.Trim('/'), path.Trim('/'));
+                    var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, gitHubUrlData.Owner, gitHubUrlData.Repository, gitHubUrlData.Path);
 
                     //setup HttpClient
                     httpClient.BaseAddress = new Uri(baseApi);
@@ -111,6 +117,50 @@ namespace FlipScript.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        public GithubUrlData ParseGithubUrl(string GithubUrl)
+        {
+            var data = new GithubUrlData();
+
+            //var url = GithubUrl.ToLower();
+            var url = GithubUrl;
+            url = url.Replace("http://", string.Empty);
+            url = url.Replace("https://", string.Empty);
+
+            var path = string.Empty;
+
+            if (url.StartsWith("raw.githubusercontent.com/"))
+            {
+                var urlSplitBySlash = url.Split('/');
+                data.Owner = urlSplitBySlash[1];
+                data.Repository = urlSplitBySlash[2];
+                //get 4 onwards
+                var pathArray = urlSplitBySlash.Skip(4);
+                foreach (var pathNode in pathArray)
+                {
+                    path += pathNode + "/";
+                }
+
+            }
+            else if (url.StartsWith("github.com/"))
+            {
+                var urlSplitBySlash = url.Split('/');
+                data.Owner = urlSplitBySlash[1];
+                data.Repository = urlSplitBySlash[2];
+                //get 4 onwards
+                var pathArray = urlSplitBySlash.Skip(5);
+                foreach (var pathNode in pathArray)
+                {
+                    path += pathNode + "/";
+                }
+            }
+
+            path = path.TrimEnd('/');
+            if (!path.EndsWith(".md")) path += ".md";
+            data.Path = path;
+
+            return data;
         }
 
         private List<string> ConvertFile(string fileContent)

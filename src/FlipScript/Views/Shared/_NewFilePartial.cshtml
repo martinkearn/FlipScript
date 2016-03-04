@@ -1,4 +1,20 @@
-﻿<form action="/Home/Viewer" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file"  />
-    <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Upload</button>
-</form>
+﻿<div class="small-12 columns">
+    <h4>Upload a file</h4>
+    <form action="/Home/Viewer" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" />
+        <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Upload</button>
+    </form>
+</div>
+
+<div class="small-12 columns">
+    <h4>Get a file from <i class="fa fa-github"></i> GitHub</h4>
+    <form action="/Home/Viewer" method="post" autocomplete="on">
+        <label for="owner">Owner:</label>
+        <input type="text" name="owner" id="owner" />
+        <label for="repo">Repo:</label>
+        <input type="text" name="repo" id="repo" />
+        <label for="path">Path:</label>
+        <input type="text" name="path" id="path" />
+        <button id="home-upload-button" type="submit" class="large button"><i class="fa fa-upload"></i> Get from GitHub</button>
+    </form>
+</div>

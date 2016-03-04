@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNet.Routing;
 
 namespace FlipScript.Controllers
 {
@@ -24,57 +25,57 @@ namespace FlipScript.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetFromGitHub(string owner, string repo, string path)
+        public async Task<IActionResult> Viewer(IFormFile file, string owner, string repo, string path)
         {
 
-#if DEBUG
-            if (string.IsNullOrEmpty(owner)) owner = "martinkearn";
-            if (string.IsNullOrEmpty(repo)) repo = "content";
-            if (string.IsNullOrEmpty(path)) path = "README.md";
-#endif
+            var fileContent = string.Empty;
 
-            using (var httpClient = new HttpClient())
+            //if a file was passed in
+            if (file != null)
             {
-                var baseApi = "https://api.github.com";
-                var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, owner.Trim('/'), repo.Trim('/'), path.Trim('/'));
+                //read incoming file to a string
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                if ((string.IsNullOrEmpty(owner)) || (string.IsNullOrEmpty(repo)) || (string.IsNullOrEmpty(path)))
+                {
+                    return RedirectToAction("Index");
+                }
 
-                //setup HttpClient
-                httpClient.BaseAddress = new Uri(baseApi);
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                using (var httpClient = new HttpClient())
+                {
+                    var baseApi = "https://api.github.com";
+                    var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, owner.Trim('/'), repo.Trim('/'), path.Trim('/'));
 
-                //set up user agent - required by GitHub api to avoid protocol violation errors
-                var message = new HttpRequestMessage(HttpMethod.Get, fullApiPath);
-                message.Headers.Add("User-Agent", "FlipScript");
+                    //setup HttpClient
+                    httpClient.BaseAddress = new Uri(baseApi);
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //make request
-                var response = await httpClient.SendAsync(message);
+                    //set up user agent - required by GitHub api to avoid protocol violation errors
+                    var message = new HttpRequestMessage(HttpMethod.Get, fullApiPath);
+                    message.Headers.Add("User-Agent", "FlipScript");
 
-                //read and deserialise response
-                var responseContent = await response.Content.ReadAsStringAsync();
-                dynamic responseObj = JObject.Parse(responseContent);
+                    //make request
+                    var response = await httpClient.SendAsync(message);
 
-                //get and decode 'content' property
-                string contentBase64EncodedString = responseObj.content;
-                var contentBase64EncodedBytes = Convert.FromBase64String(contentBase64EncodedString);
-                var decodedContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
+                    //read and deserialise response
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    dynamic responseObj = JObject.Parse(responseContent);
 
-                //write to view
-                ViewData["Result"] = decodedContent;
+                    //get and decode 'content' property
+                    string contentBase64EncodedString = responseObj.content;
+                    var contentBase64EncodedBytes = Convert.FromBase64String(contentBase64EncodedString);
+                    fileContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
+                }
             }
 
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Viewer(IFormFile file)
-        {
-            if (file == null)
-            {
-                return RedirectToAction("Index");
-            }
 
             //convert markdown file to array of html section strings
-            var sections = ConvertFile(file);
+            var sections = ConvertFile(fileContent);
 
             //find and extract h1 for page title from array of html strings
             var title = GetTitle(sections);
@@ -112,15 +113,8 @@ namespace FlipScript.Controllers
             return View();
         }
 
-        private List<string> ConvertFile(IFormFile file)
+        private List<string> ConvertFile(string fileContent)
         {
-            //read incoming file to a string
-            var fileContent = string.Empty;
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                fileContent = reader.ReadToEnd();
-            }
-
             //get full html string from file
             var fileHTML = string.Empty;
             using (var writer = new StringWriter())

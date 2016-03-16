@@ -21992,7 +21992,8 @@
       "HtmlAgilityPack >= 1.4.9",
       "CommonMark.NET >= 0.11.0",
       "System.Threading.Tasks >= 4.0.11-beta-23516",
-      "Newtonsoft.Json >= 6.0.6"
+      "Newtonsoft.Json >= 6.0.6",
+      "Microsoft.AspNet.Localization >= 1.0.0-rc1-final"
     ],
     "DNX,Version=v4.5.1": [
       "System.Net.Http >= 4.0.1-beta-23516"

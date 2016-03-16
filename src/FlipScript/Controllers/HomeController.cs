@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNet.Routing;
 using FlipScript.Models;
+using Microsoft.AspNet.Localization;
 
 namespace FlipScript.Controllers
 {
@@ -22,15 +23,28 @@ namespace FlipScript.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var vm = new FlipScript.ViewModels.Home.Index();
+            if (HttpContext.Request.Cookies.ContainsKey("gitHubUrls"))
+            {
+                string cookie = HttpContext.Request.Cookies["gitHubUrls"];
+                var cookieUrls = cookie.Split(new string[] { "----" }, StringSplitOptions.None);
+                vm.PreviousUrls = cookieUrls.ToList();
+            }
+            else
+            {
+                vm.PreviousUrls = new List<string>();
+            }
+            return View(vm);
         }
 
 
 
 
         [HttpPost]
-        public async Task<IActionResult> Viewer(IFormFile file, string gitHubUrl)
+        public async Task<IActionResult> Viewer(IFormFile file, string gitHubUrl, string selectedGitHubUrl = "default")
         {
+            //set main gi hub url to selected if it was present
+            if (selectedGitHubUrl != "default") { gitHubUrl = selectedGitHubUrl; };
 
             var fileContent = string.Empty;
 
@@ -50,6 +64,22 @@ namespace FlipScript.Controllers
                     return RedirectToAction("Index");
                 }
 
+                //store github url in cookie for easy access later
+                if (HttpContext.Request.Cookies.ContainsKey("gitHubUrls"))
+                {
+                    var existingCookie = HttpContext.Request.Cookies["gitHubUrls"];
+                    if (!existingCookie.ToString().Contains(gitHubUrl))
+                    {
+                        var newCookieValue = existingCookie + "----" + gitHubUrl;
+                        HttpContext.Response.Cookies.Append("gitHubUrls", newCookieValue, new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
+                    }
+                }
+                else
+                {
+                    HttpContext.Response.Cookies.Append("gitHubUrls", gitHubUrl, new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
+                }
+
+                //get GitHub API data from URL
                 var gitHubUrlData = ParseGithubUrl(gitHubUrl);
 
                 using (var httpClient = new HttpClient())
@@ -78,7 +108,6 @@ namespace FlipScript.Controllers
                     fileContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
                 }
             }
-
 
             //convert markdown file to array of html section strings
             var sections = ConvertFile(fileContent);

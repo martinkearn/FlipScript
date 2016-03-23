@@ -76,34 +76,8 @@ namespace FlipScript.Controllers
                     HttpContext.Response.Cookies.Append("gitHubUrls", gitHubUrl, new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
                 }
 
-                //get GitHub API data from URL
-                var gitHubUrlData = ParseGithubUrl(gitHubUrl);
-
-                using (var httpClient = new HttpClient())
-                {
-                    var baseApi = "https://api.github.com";
-                    var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, gitHubUrlData.Owner, gitHubUrlData.Repository, gitHubUrlData.Path);
-
-                    //setup HttpClient
-                    httpClient.BaseAddress = new Uri(baseApi);
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    //set up user agent - required by GitHub api to avoid protocol violation errors
-                    var message = new HttpRequestMessage(HttpMethod.Get, fullApiPath);
-                    message.Headers.Add("User-Agent", "FlipScript");
-
-                    //make request
-                    var response = await httpClient.SendAsync(message);
-
-                    //read and deserialise response
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    dynamic responseObj = JObject.Parse(responseContent);
-
-                    //get and decode 'content' property
-                    string contentBase64EncodedString = responseObj.content;
-                    var contentBase64EncodedBytes = Convert.FromBase64String(contentBase64EncodedString);
-                    fileContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
-                }
+                //get file content from GitHUb
+                fileContent = await GetGitHubFile(gitHubUrl);
             }
 
             //convert markdown file to array of html section strings
@@ -131,6 +105,7 @@ namespace FlipScript.Controllers
                 slides.Add(outputSb.ToString());
             }
 
+            //View model
             var viewModel = new Viewer()
             {
                 Title = title,
@@ -205,6 +180,42 @@ namespace FlipScript.Controllers
 
             return data;
         }
+
+        private async Task<string> GetGitHubFile(string GitHubUrl)
+        {
+            var fileContent = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                //get GitHub API data from URL
+                var gitHubUrlData = ParseGithubUrl(GitHubUrl);
+
+                //construct url
+                var baseApi = "https://api.github.com";
+                var fullApiPath = string.Format("{0}/repos/{1}/{2}/contents/{3}", baseApi, gitHubUrlData.Owner, gitHubUrlData.Repository, gitHubUrlData.Path);
+
+                //setup HttpClient
+                httpClient.BaseAddress = new Uri(baseApi);
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //set up user agent - required by GitHub api to avoid protocol violation errors
+                var message = new HttpRequestMessage(HttpMethod.Get, fullApiPath);
+                message.Headers.Add("User-Agent", "FlipScript");
+
+                //make request
+                var response = await httpClient.SendAsync(message);
+
+                //read and deserialise response
+                var responseContent = await response.Content.ReadAsStringAsync();
+                dynamic responseObj = JObject.Parse(responseContent);
+
+                //get and decode 'content' property
+                string contentBase64EncodedString = responseObj.content;
+                var contentBase64EncodedBytes = Convert.FromBase64String(contentBase64EncodedString);
+                fileContent = Encoding.UTF8.GetString(contentBase64EncodedBytes);
+            }
+            return fileContent;
+        }
+    
 
         private List<string> ConvertFile(string fileContent)
         {

@@ -45,7 +45,7 @@
                     {
                         <label>
                             Or select from previous GitHub URLs
-                            <select name="selectedGitHubUrl" id="selectedGitHubUrl">
+                            <select id="selectedGitHubUrl" onchange="SetInputFromSelect()">
                                 <option value="default">Select...</option>
                                 @foreach (var url in Model.PreviousUrls)
                                 {
@@ -64,3 +64,14 @@
     </div>
 
 </div>
+
+@section scripts{
+<script>
+    function SetInputFromSelect()
+    {
+        var select = document.getElementById("selectedGitHubUrl");
+        var selectedGitHubUrl = select.options[select.selectedIndex].value;
+        document.getElementById("gitHubUrl").value = selectedGitHubUrl;
+    }
+</script>
+}

@@ -40,9 +40,6 @@ namespace FlipScript.Controllers
         //[HttpPost]
         public async Task<IActionResult> Viewer(IFormFile file = null, string gitHubUrl = "")
         {
-            //set main github url to selected if it was present
-            //if (selectedGitHubUrl != "default") { gitHubUrl = selectedGitHubUrl; };
-
             //check if gitHubUrl is base 64, decoded if it is
             gitHubUrl = DecodeBase64(gitHubUrl);
 

@@ -18,4 +18,4 @@ For example, if you wanted a link to this Markdown file (the one you are reading
 
 You then Base64 encode the url to get `aHR0cHM6Ly9naXRodWIuY29tL21hcnRpbmtlYXJuL0ZsaXBTY3JpcHQvYmxvYi9tYXN0ZXIvUkVBRE1FLm1k`
 
-You can then construct your full FlipScript url which would be `http://FlipScript.AzureWebsites.net/home/viewer/HR0cHM6Ly9naXRodWIuY29tL21hcnRpbmtlYXJuL0ZsaXBTY3JpcHQvYmxvYi9tYXN0ZXIvUkVBRE1FLm1k`
+You can then construct your full FlipScript url which would be http://FlipScript.AzureWebsites.net/home/viewer/HR0cHM6Ly9naXRodWIuY29tL21hcnRpbmtlYXJuL0ZsaXBTY3JpcHQvYmxvYi9tYXN0ZXIvUkVBRE1FLm1k

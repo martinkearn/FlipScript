@@ -37,13 +37,17 @@ namespace FlipScript.Controllers
             return View(vm);
         }
 
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> Viewer(IFormFile file, string gitHubUrl, string selectedGitHubUrl = "default")
+        public IActionResult GitHub(string Owner, string Repository, string Path)
         {
-            //set main gi hub url to selected if it was present
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        public async Task<IActionResult> Viewer(IFormFile file = null, string gitHubUrl = "", string selectedGitHubUrl = "default")
+        {
+            //cannot seem to pass urls in directly, but can pass base64 encoded urls. Need to find out how to detetc if gitHubUrl is base64 encoded and if so decode it https://msdn.microsoft.com/en-us/library/system.convert.frombase64string(v=vs.110).aspx
+
+            //set main github url to selected if it was present
             if (selectedGitHubUrl != "default") { gitHubUrl = selectedGitHubUrl; };
 
             var fileContent = string.Empty;

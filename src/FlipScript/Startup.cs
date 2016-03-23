@@ -105,8 +105,24 @@ namespace FlipScript
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    "GitHub",
+                    "home/GitHub/{Owner}/{Repository}/{Path}",                                      
+                    new { controller = "Home", action = "GitHub" }   
+                );
+
+
+                routes.MapRoute(
+                    "Viewer",                                                                   // Route name
+                    "home/viewer/{gitHubUrl}",                                        // URL with parameters
+                    new { controller = "Home", action = "Viewer" }     // Parameter defaults
+                );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+
+
             });
         }
 

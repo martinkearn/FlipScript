@@ -37,30 +37,10 @@ namespace FlipScript.Controllers
             return View(vm);
         }
 
-        //[HttpPost]
-        public async Task<IActionResult> Viewer(IFormFile file = null, string gitHubUrl = "")
+        public IActionResult GitHubUrlHandler(string gitHubUrl)
         {
-            //check if gitHubUrl is base 64, decoded if it is
-            gitHubUrl = DecodeBase64(gitHubUrl);
-
-            var fileContent = string.Empty;
-
-            //if a file was passed in
-            if (file != null)
+            if (!string.IsNullOrEmpty(gitHubUrl))
             {
-                //read incoming file to a string
-                using (var reader = new StreamReader(file.OpenReadStream()))
-                {
-                    fileContent = reader.ReadToEnd();
-                }
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(gitHubUrl))
-                {
-                    return RedirectToAction("Index");
-                }
-
                 //store github url in cookie for easy access later
                 if (HttpContext.Request.Cookies.ContainsKey("gitHubUrls"))
                 {
@@ -76,8 +56,42 @@ namespace FlipScript.Controllers
                     HttpContext.Response.Cookies.Append("gitHubUrls", gitHubUrl, new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
                 }
 
+                //base64 encode url
+                var plainTextBytes = Encoding.UTF8.GetBytes(gitHubUrl);
+                var base64 =  Convert.ToBase64String(plainTextBytes);
+
+                //redirect to viewer
+                return RedirectToAction("Viewer", new { gitHubUrl = base64 });
+            }
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        public async Task<IActionResult> Viewer(IFormFile file = null, string gitHubUrl = "")
+        {
+            var fileContent = string.Empty;
+
+            //get file content as string
+            if (file != null)
+            {
+                //read incoming file to a string
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
+            }
+            else if (!string.IsNullOrEmpty(gitHubUrl))
+            {
+                //check if gitHubUrl is base 64, decoded if it is
+                gitHubUrl = DecodeBase64(gitHubUrl);
+
                 //get file content from GitHUb
                 fileContent = await GetGitHubFile(gitHubUrl);
+            }
+            else
+            {
+                //return back to index
+                return RedirectToAction("Index");
             }
 
             //convert markdown file to array of html section strings

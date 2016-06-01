@@ -47,9 +47,9 @@
     height: 100%;
 }
 
-.owl-wrapper-outer {
+/*.owl-wrapper-outer {
     margin-bottom: 60px;
-}
+}*/
 
 #carousel-container-columns {
     height: 100%;
@@ -73,7 +73,7 @@ dl, ol, ul {
 
 .owl-theme .owl-controls .owl-page span.owl-numbers {
     padding: 5px 10px;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-family: "blackoutmidnight", Arial, sans-serif;
 }
 
@@ -85,27 +85,13 @@ dl, ol, ul {
     margin-top: 0;
     margin-left: -15px;
     margin-right: -15px;
+    text-align: right;
 }
 
 .owl-controls {
     position: fixed;
     z-index: 100;
     width: 100%;
-    bottom: 60px;
-}
+    bottom: 0px;
 
-#footer-nav {
-    font-family: "blackoutmidnight", Arial, sans-serif;
-    color: white;
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    background-color: #808080;
-    bottom: 0;
-    height: 60px;
-}
-
-.prev-next-button {
-    width: 50%;
-    height: 100%;
 }

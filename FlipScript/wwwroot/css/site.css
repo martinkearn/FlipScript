@@ -1,0 +1,106 @@
+﻿body {
+    font-size: 16pt;
+}
+
+.title-bar {
+    font-family: "blackoutmidnight", Arial, sans-serif;
+    color: white;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    background-color: #808080;
+}
+
+/*.title-bar-title {
+    font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+    font-weight: normal;
+}*/
+
+
+.button.small {
+    margin-bottom: 0;
+}
+
+.button {
+    background-color: darkorange;
+}
+
+    .button:focus, .button:hover {
+        background-color: darkorange;
+    }
+
+#file-load-modal > h2 {
+    font-family: "blackoutmidnight", Arial, sans-serif;
+}
+
+#home-upload-button {
+    font-family: "blackoutmidnight", Arial, sans-serif;
+    color: white;
+}
+
+#home-container {
+    padding-top: 50px;
+}
+
+#carousel-container {
+    padding-top: 50px;
+    height: 100%;
+}
+
+/*.owl-wrapper-outer {
+    margin-bottom: 60px;
+}*/
+
+#carousel-container-columns {
+    height: 100%;
+}
+
+.owl-carousel {
+    height: 100%;
+}
+
+.owl-theme .owl-controls .owl-page span.owl-numbers {
+    border-radius: 0;
+}
+
+.owl-theme .owl-controls .owl-buttons div {
+    border-radius: 0;
+}
+
+dl, ol, ul {
+    list-style-position: inside;
+}
+
+.owl-theme .owl-controls .owl-page span.owl-numbers {
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-family: "blackoutmidnight", Arial, sans-serif;
+}
+
+.owl-theme .owl-controls .owl-page.active span, .owl-theme .owl-controls.clickable .owl-page:hover span {
+    background-color: darkorange;
+}
+
+.owl-theme .owl-controls {
+    margin-top: 0;
+    margin-left: -15px;
+    margin-right: -15px;
+    text-align: right;
+}
+
+.owl-controls {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    bottom: 0px;
+}
+
+#home-container {
+    padding: 10px;
+    padding-top: 50px;
+}
+
+#carousel-container {
+    padding: 10px;
+    padding-top: 50px;
+}

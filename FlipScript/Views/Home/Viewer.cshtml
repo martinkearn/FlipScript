@@ -1,0 +1,58 @@
+﻿@model FlipScript.ViewModels.Home.Viewer
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="title-bar">
+    <div class="title-bar-left ">
+        <a id="load-button" class="small button" href="/"><i class="fa fa-plus"></i> <span class="hide-for-small-only"> New File</span></a>
+        <span class="title-bar-title hide-for-small-only">@ViewData["Title"]</span>
+    </div>
+    <div class="title-bar-right">
+        <a id="prev" class="small button" href="#" name="Previous"><i class="fa fa-angle-double-left"></i> <span class="hide-for-small-only"></span></a>
+        <a id="next" class="small button" href="#" name="Next"><i class="fa fa-angle-double-right"></i> <span class="hide-for-small-only"></span></a>
+    </div>
+</div>
+
+<div id="carousel-container" class="expanded row">
+    <div id="carousel-container-columns" class="small-12 columns">
+        <div id="owl" class="owl-carousel">
+            @foreach (var slide in Model.SlidesHtml)
+            {
+                Output.Write(slide);
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            var owl = $("#owl");
+
+            $("#owl").owlCarousel({
+                items: 1,
+                autoPlay: false,
+                pagination: true,
+                paginationNumbers: true,
+                responsive: true,
+                dragBeforeAnimFinish: true,
+                mouseDrag: true,
+                touchDrag: true,
+                singleItem: true,
+                navigation: false
+            });
+
+            // Custom Navigation Events
+            $("#next").click(function(){
+                owl.trigger('owl.next');
+            })
+            $("#prev").click(function(){
+                owl.trigger('owl.prev');
+            })
+
+        });
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FlipScript</title>
+
+    <link href="~/lib/foundation-sites/dist/css/foundation.min.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/owl-carousel/owl.carousel.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/owl-carousel/owl.theme.css" rel="stylesheet" />
+    <link href="~/lib/owl-carousel/owl-carousel/owl.transitions.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/blackout/stylesheet.css" rel="stylesheet" />
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    @RenderBody()
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/foundation-sites/dist/js/foundation.min.js"></script>
+    <script type="text/javascript">
+            $(document).foundation();
+    </script>
+    <script src="~/lib/owl-carousel/owl-carousel/owl.carousel.min.js"></script>
+
+    <environment names="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

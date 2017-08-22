@@ -49,7 +49,7 @@
                                 <option value="default">Select...</option>
                                 @foreach (var url in Model.PreviousUrls)
                                 {
-                                    <option value="@url">@url</option>
+                                    <option value="@url">@url.Split('/').Last();</option>
                                 }
                             </select>
 
